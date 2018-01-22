@@ -12,7 +12,7 @@
             @include('common.error')
 
             <div class="panel-body">
-                <form action="{{ route('users.update', $user->id) }}" method="POST" accept-charset="UTF-8">
+                <form action="{{ route('users.update', $user->id) }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
@@ -27,9 +27,15 @@
                     </div>
                     <div class="form-group">
                         <label for="introduction-field">个人简介</label>
-                        <textarea name="introduction" id="introduction-field"  rows="3" class="form-control">
-                            {{ old('introduction', $user->introduction) }}
-                        </textarea>
+                        <textarea name="introduction" id="introduction-field"  rows="3" class="form-control">{{ old('introduction', $user->introduction) }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="avatar-label">用户头像</label>
+                        <input type="file" name="avatar">
+                        @if($user->user)
+                            <br>
+                            <img src="{{ $user->avatar }}" class="thumbnail img-responsive" width="200">
+                        @endif
                     </div>
                     <div class="well well-sm">
                         <button type="submit" class="btn btn-primary">保存</button>
